@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¿Cómo se define el Salario Mínimo en Colombia?</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,700;0,900;1,300&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --gold: #C9A84C; --gold-light: #E8CC7A; --dark: #0F0F0F; --dark-2: #1A1A1A;
+    --dark-3: #252525; --text: #E8E2D6; --text-muted: #8A8075;
+    --red: #C0392B; --green: #27AE60; --blue: #2980B9; --orange: #D35400;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--dark); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+
+  .hero {
+    min-height: 100vh; display: flex; flex-direction: column; align-items: center;
+    justify-content: center; text-align: center; padding: 2rem; position: relative;
+    background: radial-gradient(ellipse at 50% 0%, #2a1f00 0%, var(--dark) 65%); overflow: hidden;
+  }
+  .hero::before { content: ''; position: absolute; width: 600px; height: 600px; border-radius: 50%; border: 1px solid rgba(201,168,76,0.12); top: 50%; left: 50%; transform: translate(-50%,-50%); animation: pulse 4s ease-in-out infinite; }
+  .hero::after { content: ''; position: absolute; width: 900px; height: 900px; border-radius: 50%; border: 1px solid rgba(201,168,76,0.06); top: 50%; left: 50%; transform: translate(-50%,-50%); animation: pulse 4s ease-in-out infinite 1s; }
+  @keyframes pulse { 0%,100% { transform: translate(-50%,-50%) scale(1); opacity:1; } 50% { transform: translate(-50%,-50%) scale(1.05); opacity:0.5; } }
+
+  .flag-bar { display: flex; gap: 6px; margin-bottom: 2rem; position: relative; z-index: 1; }
+  .flag-bar span { width: 36px; height: 6px; border-radius: 3px; }
+  .hero-eyebrow { font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; position: relative; z-index: 1; }
+  .hero h1 { font-family: 'Fraunces', serif; font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 900; line-height: 1.05; max-width: 800px; position: relative; z-index: 1; margin-bottom: 1.5rem; }
+  .hero h1 em { font-style: italic; color: var(--gold); }
+  .hero-sub { font-size: 1.1rem; color: var(--text-muted); max-width: 500px; line-height: 1.7; position: relative; z-index: 1; margin-bottom: 3rem; }
+  .scroll-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--gold); color: var(--dark); border: none; padding: 0.9rem 2rem; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.95rem; border-radius: 50px; cursor: pointer; position: relative; z-index: 1; transition: all 0.3s; text-decoration: none; }
+  .scroll-btn:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
+  .section { padding: 5rem 0; border-top: 1px solid rgba(255,255,255,0.06); }
+  .section-number { font-size: 5rem; font-family: 'Fraunces', serif; font-weight: 900; color: rgba(201,168,76,0.12); line-height: 1; margin-bottom: -1rem; }
+  .section-tag { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; }
+  .section h2 { font-family: 'Fraunces', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 700; line-height: 1.2; margin-bottom: 1.5rem; }
+  .section p { font-size: 1.05rem; line-height: 1.8; color: #C8C0B0; margin-bottom: 1.2rem; }
+  .section p strong { color: var(--text); font-weight: 600; }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; margin-top: 2rem; }
+  .card { background: var(--dark-2); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; padding: 1.5rem; transition: all 0.3s; cursor: default; }
+  .card:hover { border-color: var(--gold); transform: translateY(-3px); background: var(--dark-3); }
+  .card-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+  .card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text); }
+  .card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0; }
+
+  .actors { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+  .actor { display: flex; align-items: flex-start; gap: 1.2rem; background: var(--dark-2); border-radius: 14px; padding: 1.2rem 1.5rem; border-left: 4px solid transparent; transition: all 0.3s; cursor: pointer; position: relative; }
+  .actor:hover { background: var(--dark-3); }
+  .actor.gobierno { border-left-color: #C0392B; }
+  .actor.trabajadores { border-left-color: #27AE60; }
+  .actor.empresarios { border-left-color: #2980B9; }
+  .actor-emoji { font-size: 2rem; flex-shrink: 0; }
+  .actor-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-muted); margin-bottom: 0.2rem; }
+  .actor-name { font-weight: 600; font-size: 1rem; margin-bottom: 0.3rem; }
+  .actor-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
+  .actor-detail { display: none; background: rgba(0,0,0,0.3); border-radius: 10px; padding: 1rem; margin-top: 0.75rem; font-size: 0.88rem; color: #C8C0B0; line-height: 1.7; border: 1px solid rgba(255,255,255,0.08); }
+  .actor-detail.visible { display: block; animation: fadeIn 0.3s ease; }
+  .actor .toggle-hint { position: absolute; right: 1.2rem; top: 1.2rem; font-size: 0.75rem; color: var(--text-muted); opacity: 0.6; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(-4px); } to { opacity:1; transform:none; } }
+
+  .factors { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
+  @media (max-width: 600px) { .factors { grid-template-columns: 1fr; } }
+  .factor { background: var(--dark-2); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 1.3rem; cursor: pointer; transition: all 0.3s; position: relative; overflow: hidden; }
+  .factor::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--factor-color, var(--gold)); transform: scaleX(0); transition: transform 0.3s; }
+  .factor:hover::before, .factor.active::before { transform: scaleX(1); }
+  .factor:hover, .factor.active { border-color: rgba(255,255,255,0.15); background: var(--dark-3); }
+  .factor-head { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.5rem; }
+  .factor-icon { font-size: 1.3rem; }
+  .factor-title { font-weight: 600; font-size: 0.95rem; }
+  .factor-short { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
+  .factor-expanded { display: none; font-size: 0.85rem; color: #C8C0B0; line-height: 1.7; margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.07); }
+  .factor.active .factor-expanded { display: block; animation: fadeIn 0.3s ease; }
+
+  .timeline { position: relative; margin-top: 2.5rem; }
+  .timeline::before { content: ''; position: absolute; left: 24px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--gold), transparent); }
+  .tl-item { display: flex; gap: 1.5rem; margin-bottom: 2rem; position: relative; }
+  .tl-dot { width: 48px; height: 48px; border-radius: 50%; background: var(--dark-2); border: 2px solid var(--gold); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; z-index: 1; transition: all 0.3s; }
+  .tl-item:hover .tl-dot { background: var(--gold); color: var(--dark); }
+  .tl-content { background: var(--dark-2); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 1.2rem 1.4rem; flex: 1; transition: all 0.3s; }
+  .tl-item:hover .tl-content { border-color: rgba(201,168,76,0.4); }
+  .tl-month { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 0.3rem; }
+  .tl-title { font-weight: 600; font-size: 1rem; margin-bottom: 0.4rem; }
+  .tl-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
+
+  .calc-box { background: var(--dark-2); border: 1px solid rgba(201,168,76,0.25); border-radius: 20px; padding: 2rem; margin-top: 2rem; }
+  .calc-box h3 { font-family: 'Fraunces', serif; font-size: 1.4rem; margin-bottom: 0.4rem; }
+  .calc-box .calc-sub { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+  .slider-group { margin-bottom: 1.5rem; }
+  .slider-label { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.6rem; color: var(--text-muted); }
+  .slider-label strong { color: var(--gold); font-size: 1rem; }
+  input[type="range"] { width: 100%; -webkit-appearance: none; height: 4px; border-radius: 2px; background: rgba(255,255,255,0.1); outline: none; cursor: pointer; }
+  input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--gold); cursor: pointer; transition: transform 0.2s; }
+  input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+  .calc-result { background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.2); border-radius: 14px; padding: 1.2rem 1.5rem; margin-top: 1.5rem; text-align: center; }
+  .result-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-muted); margin-bottom: 0.3rem; }
+  .result-amount { font-family: 'Fraunces', serif; font-size: 2.2rem; font-weight: 900; color: var(--gold); }
+  .result-note { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.3rem; line-height: 1.5; }
+
+  .comp-table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; font-size: 0.9rem; }
+  .comp-table th { background: rgba(201,168,76,0.1); color: var(--gold); padding: 0.75rem 1rem; text-align: left; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; }
+  .comp-table td { padding: 0.75rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); color: #C8C0B0; }
+  .comp-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .comp-table .highlight { color: var(--gold); font-weight: 600; }
+
+  .quiz-box { background: var(--dark-2); border-radius: 20px; border: 1px solid rgba(255,255,255,0.08); padding: 2rem; margin-top: 2rem; }
+  .quiz-q { font-size: 1.05rem; font-weight: 500; margin-bottom: 1.2rem; line-height: 1.5; }
+  .quiz-options { display: flex; flex-direction: column; gap: 0.6rem; }
+  .quiz-opt { background: var(--dark-3); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 0.85rem 1.1rem; cursor: pointer; font-size: 0.92rem; text-align: left; color: var(--text); transition: all 0.25s; font-family: 'DM Sans', sans-serif; }
+  .quiz-opt:hover:not(:disabled) { border-color: var(--gold); background: rgba(201,168,76,0.07); }
+  .quiz-opt.correct { border-color: var(--green); background: rgba(39,174,96,0.1); color: #5ddb8a; }
+  .quiz-opt.wrong { border-color: var(--red); background: rgba(192,57,43,0.1); color: #e57060; }
+  .quiz-opt:disabled { cursor: default; }
+  .quiz-feedback { margin-top: 1rem; padding: 0.9rem 1.1rem; border-radius: 10px; font-size: 0.9rem; line-height: 1.6; display: none; }
+  .quiz-feedback.visible { display: block; animation: fadeIn 0.3s; }
+  .quiz-feedback.ok { background: rgba(39,174,96,0.1); border: 1px solid rgba(39,174,96,0.3); color: #5ddb8a; }
+  .quiz-feedback.fail { background: rgba(192,57,43,0.1); border: 1px solid rgba(192,57,43,0.3); color: #e57060; }
+  .quiz-next { display: none; margin-top: 1rem; background: var(--gold); color: var(--dark); border: none; padding: 0.7rem 1.5rem; border-radius: 50px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; transition: all 0.25s; }
+  .quiz-next:hover { background: var(--gold-light); }
+  .quiz-next.visible { display: inline-flex; }
+  .quiz-progress { display: flex; gap: 6px; margin-bottom: 1.2rem; }
+  .quiz-pip { flex: 1; height: 4px; border-radius: 2px; background: rgba(255,255,255,0.1); transition: background 0.3s; }
+  .quiz-pip.done { background: var(--gold); }
+  .quiz-pip.active { background: rgba(201,168,76,0.5); }
+
+  .myths { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+  .myth { border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.07); }
+  .myth-head { background: var(--dark-2); padding: 1rem 1.3rem; cursor: pointer; display: flex; align-items: center; gap: 0.8rem; transition: background 0.2s; }
+  .myth-head:hover { background: var(--dark-3); }
+  .myth-false { font-size: 0.65rem; background: rgba(192,57,43,0.2); color: #e57060; border: 1px solid rgba(192,57,43,0.3); padding: 2px 8px; border-radius: 20px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; flex-shrink: 0; }
+  .myth-text { font-size: 0.95rem; font-weight: 500; flex: 1; }
+  .myth-chevron { margin-left: auto; font-size: 0.8rem; color: var(--text-muted); transition: transform 0.3s; }
+  .myth.open .myth-chevron { transform: rotate(180deg); }
+  .myth-body { display: none; background: rgba(0,0,0,0.2); padding: 1rem 1.3rem; font-size: 0.88rem; color: #C8C0B0; line-height: 1.7; border-top: 1px solid rgba(255,255,255,0.05); }
+  .myth.open .myth-body { display: block; animation: fadeIn 0.3s; }
+  .myth-body .truth { color: #5ddb8a; font-weight: 600; display: block; margin-bottom: 0.4rem; }
+
+  .highlight-box { background: rgba(201,168,76,0.07); border: 1px solid rgba(201,168,76,0.2); border-radius: 14px; padding: 1.2rem 1.5rem; margin: 1.5rem 0; font-size: 0.95rem; line-height: 1.7; color: #D8CEB0; }
+
+  .sticky-nav { position: fixed; top: 1rem; left: 50%; transform: translateX(-50%); background: rgba(15,15,15,0.9); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.08); border-radius: 50px; padding: 0.4rem 0.6rem; display: flex; gap: 0.2rem; z-index: 100; opacity: 0; transition: opacity 0.3s; }
+  .sticky-nav.visible { opacity: 1; }
+  .nav-dot { width: 32px; height: 32px; border-radius: 50%; border: none; background: transparent; color: var(--text-muted); cursor: pointer; font-size: 0.85rem; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+  .nav-dot:hover { background: var(--gold); color: var(--dark); }
+
+  .final-section { padding: 5rem 0; text-align: center; background: radial-gradient(ellipse at 50% 100%, #1a1200 0%, transparent 70%); }
+  .final-section h2 { font-family: 'Fraunces', serif; font-size: clamp(1.8rem, 4vw, 3rem); margin-bottom: 1rem; }
+  .final-section p { color: var(--text-muted); max-width: 550px; margin: 0 auto 2rem; line-height: 1.7; }
+
+  @media (max-width: 600px) { .section { padding: 3rem 0; } }
+</style>
+</head>
+<body>
+
+<nav class="sticky-nav" id="stickyNav">
+  <button class="nav-dot" onclick="scrollToSection('intro')" title="Intro">🏠</button>
+  <button class="nav-dot" onclick="scrollToSection('actores')" title="Actores">👥</button>
+  <button class="nav-dot" onclick="scrollToSection('factores')" title="Factores">📊</button>
+  <button class="nav-dot" onclick="scrollToSection('proceso')" title="Proceso">📅</button>
+  <button class="nav-dot" onclick="scrollToSection('simulador')" title="Simulador">🧮</button>
+  <button class="nav-dot" onclick="scrollToSection('quiz')" title="Quiz">🎯</button>
+  <button class="nav-dot" onclick="scrollToSection('mitos')" title="Mitos">💡</button>
+</nav>
+
+<section class="hero" id="intro">
+  <div class="flag-bar">
+    <span style="background:#FFD100"></span>
+    <span style="background:#003087"></span>
+    <span style="background:#CE1126"></span>
+  </div>
+  <p class="hero-eyebrow">Economía colombiana · Guía interactiva</p>
+  <h1>¿Cómo se define el<br><em>Salario Mínimo</em><br>en Colombia?</h1>
+  <p class="hero-sub">Una explicación clara y sin tecnicismos para que cualquier persona entienda cómo se negocia el sueldo mínimo cada año.</p>
+  <a href="#actores" class="scroll-btn">Comenzar ↓</a>
+</section>
+
+<div class="container">
+<section class="section" id="actores">
+  <div class="section-number">01</div>
+  <p class="section-tag">El punto de partida</p>
+  <h2>¿Qué es el salario mínimo y por qué importa?</h2>
+  <p>El <strong>salario mínimo</strong> es el pago más bajo que un empleador puede pagar legalmente a sus trabajadores en Colombia. Es como el "piso" de los sueldos: nadie puede ganar menos que eso por una jornada laboral completa.</p>
+  <p>Para 2025, el salario mínimo en Colombia es de <strong>$1.423.500 pesos</strong>, más un <strong>auxilio de transporte de $200.000 pesos</strong>. Esto afecta directamente a millones de colombianos.</p>
+
+  <div class="highlight-box">
+    💡 <strong>¿Por qué existe?</strong> Sin un salario mínimo, las empresas podrían pagar lo que quisieran, y muchos trabajadores — especialmente los menos calificados — aceptarían sueldos muy bajos por necesidad. El mínimo protege la dignidad económica de las personas.
+  </div>
+
+  <div class="cards">
+    <div class="card"><div class="card-icon">📋</div><h3>Carácter legal</h3><p>Está en el Código Sustantivo del Trabajo. No pagarlo es ilegal y tiene sanciones para los empleadores.</p></div>
+    <div class="card"><div class="card-icon">📅</div><h3>Se negocia cada año</h3><p>No es fijo para siempre. Cada diciembre se define el valor para el 1 de enero del año siguiente.</p></div>
+    <div class="card"><div class="card-icon">🏦</div><h3>Referencia económica</h3><p>Muchos beneficios y pensiones están ligados al salario mínimo, así que su aumento tiene efectos en cadena.</p></div>
+  </div>
+
+  <div style="margin-top:3.5rem;">
+    <p class="section-tag">Los protagonistas</p>
+    <h2>¿Quiénes participan en la negociación?</h2>
+    <p>Existe una <strong>mesa de negociación</strong> llamada <em>Comisión Permanente de Concertación de Políticas Salariales y Laborales</em>. Haz clic en cada actor para conocer su rol:</p>
+
+    <div class="actors">
+      <div class="actor gobierno" onclick="toggleActor(this)">
+        <div class="actor-emoji">🏛️</div>
+        <div style="flex:1">
+          <div class="actor-label">Actor 1</div>
+          <div class="actor-name">El Gobierno Nacional</div>
+          <div class="actor-desc">Representa los intereses del Estado y busca equilibrio entre lo social y lo económico.</div>
+          <div class="actor-detail">
+            <strong>¿Qué hace en la mesa?</strong> El Ministerio del Trabajo modera la negociación y presenta los datos económicos oficiales. También tiene el poder de fijar el salario por decreto si las partes no llegan a acuerdo antes del 30 de diciembre.<br><br>
+            <strong>Analogía:</strong> Es como el árbitro en un partido: no juega en ningún equipo, pero tiene la última palabra si el partido no termina a tiempo.
+          </div>
+        </div>
+        <span class="toggle-hint">▼ Ver más</span>
+      </div>
+
+      <div class="actor trabajadores" onclick="toggleActor(this)">
+        <div class="actor-emoji">👷</div>
+        <div style="flex:1">
+          <div class="actor-label">Actor 2</div>
+          <div class="actor-name">Los Trabajadores (Sindicatos)</div>
+          <div class="actor-desc">Representados por centrales obreras como la CUT, la CGT y la CTC.</div>
+          <div class="actor-detail">
+            <strong>¿Qué hacen en la mesa?</strong> Defienden que el aumento sea suficiente para mantener el poder adquisitivo: que el sueldo alcance para comprar lo mismo o más que el año anterior. Generalmente piden aumentos altos.<br><br>
+            <strong>Analogía:</strong> Son el equipo del hogar: buscan que el dinero que entra a casa alcance para cubrir todas las necesidades y algo más.
+          </div>
+        </div>
+        <span class="toggle-hint">▼ Ver más</span>
+      </div>
+
+      <div class="actor empresarios" onclick="toggleActor(this)">
+        <div class="actor-emoji">🏭</div>
+        <div style="flex:1">
+          <div class="actor-label">Actor 3</div>
+          <div class="actor-name">Los Empleadores (Empresarios)</div>
+          <div class="actor-desc">Representados por gremios como ANDI, ACOPI y Fenalco.</div>
+          <div class="actor-detail">
+            <strong>¿Qué hacen en la mesa?</strong> Argumentan que un aumento muy alto puede reducir la capacidad de contratar personas. Proponen aumentos más moderados, especialmente si la economía no creció mucho.<br><br>
+            <strong>Analogía:</strong> Son como los dueños de una tienda: quieren pagar bien a sus empleados, pero también necesitan que el negocio no quiebre.
+          </div>
+        </div>
+        <span class="toggle-hint">▼ Ver más</span>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="container">
+<section class="section" id="factores">
+  <div class="section-number">02</div>
+  <p class="section-tag">Los ingredientes</p>
+  <h2>¿En qué se basan para definir el aumento?</h2>
+  <p>La negociación no es un juego de azar. Hay <strong>indicadores económicos concretos</strong> que sirven de base. Haz clic en cada factor para entenderlo:</p>
+
+  <div class="factors">
+    <div class="factor" style="--factor-color:#C0392B" onclick="toggleFactor(this)">
+      <div class="factor-head"><span class="factor-icon">📈</span><span class="factor-title">Inflación (IPC)</span></div>
+      <div class="factor-short">El aumento en el precio de las cosas que compramos.</div>
+      <div class="factor-expanded">El <strong>Índice de Precios al Consumidor (IPC)</strong> mide cuánto subieron los precios en el último año. Si todo subió un 9%, un trabajador que gana lo mismo que antes <em>en realidad gana menos</em>, porque su dinero no compra lo mismo. Por eso, como mínimo, el salario debería subir al menos lo que subieron los precios. El DANE calcula y publica este dato.</div>
+    </div>
+
+    <div class="factor" style="--factor-color:#27AE60" onclick="toggleFactor(this)">
+      <div class="factor-head"><span class="factor-icon">🏗️</span><span class="factor-title">Crecimiento del PIB</span></div>
+      <div class="factor-short">Cuánto creció (o cayó) la economía colombiana ese año.</div>
+      <div class="factor-expanded">El <strong>Producto Interno Bruto (PIB)</strong> es el valor de todo lo que produce Colombia en un año. Si la economía creció mucho, es señal de que las empresas generaron más riqueza — y los trabajadores argumentan que merecen una parte de ese crecimiento.<br><br><strong>Analogía:</strong> Si la "torta económica" del país se hizo más grande, lo justo es que todos los que la ayudaron a hacer reciban un pedazo más grande.</div>
+    </div>
+
+    <div class="factor" style="--factor-color:#2980B9" onclick="toggleFactor(this)">
+      <div class="factor-head"><span class="factor-icon">⚙️</span><span class="factor-title">Productividad Laboral</span></div>
+      <div class="factor-short">¿Los trabajadores están produciendo más que antes?</div>
+      <div class="factor-expanded">La productividad mide cuánto produce un trabajador en una hora de trabajo. Si los trabajadores son más productivos (por mejor tecnología o capacitación), generan más valor y esto justifica un mayor salario.<br><br><strong>Analogía:</strong> Si antes podías empacar 100 cajas por hora y ahora empacas 120, estás aportando más valor. Tiene sentido recibir más por eso.</div>
+    </div>
+
+    <div class="factor" style="--factor-color:#D35400" onclick="toggleFactor(this)">
+      <div class="factor-head"><span class="factor-icon">💼</span><span class="factor-title">Empleo e Informalidad</span></div>
+      <div class="factor-short">¿Cuánta gente está trabajando y en qué condiciones?</div>
+      <div class="factor-expanded">Si el desempleo es alto, los empresarios argumentan que un aumento muy fuerte puede llevar a contratar menos personas. Además, Colombia tiene alta <strong>informalidad</strong> (muchos trabajadores sin contrato) que no se benefician directamente del salario mínimo — aunque su situación también se considera en el debate.</div>
+    </div>
+
+    <div class="factor" style="--factor-color:#8E44AD" onclick="toggleFactor(this)">
+      <div class="factor-head"><span class="factor-icon">🧺</span><span class="factor-title">Costo de Vida</span></div>
+      <div class="factor-short">¿Cuánto cuesta vivir dignamente en Colombia?</div>
+      <div class="factor-expanded">Se analiza el costo de la <strong>canasta familiar</strong>: los gastos básicos de una familia típica (alimentación, vivienda, transporte, educación, salud). El ideal es que el salario mínimo permita cubrir esa canasta. En la práctica, en ciudades como Bogotá no siempre alcanza.</div>
+    </div>
+
+    <div class="factor" style="--factor-color:#16A085" onclick="toggleFactor(this)">
+      <div class="factor-head"><span class="factor-icon">🌍</span><span class="factor-title">Contexto Internacional</span></div>
+      <div class="factor-short">¿Cómo está el mundo? ¿Qué pasa con el dólar?</div>
+      <div class="factor-expanded">El precio del dólar y la economía global también influyen. Un dólar muy caro encarece las importaciones, empujando la inflación. También se miran los salarios mínimos de países vecinos como México, Perú o Brasil para tener referencia regional.</div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="container">
+<section class="section" id="proceso">
+  <div class="section-number">03</div>
+  <p class="section-tag">El paso a paso</p>
+  <h2>¿Cómo es el proceso de negociación?</h2>
+  <p>La negociación sigue un calendario específico. No es algo que se decida en un día:</p>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot">📊</div>
+      <div class="tl-content">
+        <div class="tl-month">A lo largo del año</div>
+        <div class="tl-title">Recolección de datos</div>
+        <div class="tl-desc">El DANE publica mensualmente la inflación. El Banco de la República monitorea la economía. El Ministerio de Trabajo reúne estadísticas de empleo. Toda esta información servirá como base en diciembre.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">🗣️</div>
+      <div class="tl-content">
+        <div class="tl-month">Noviembre</div>
+        <div class="tl-title">Inicio formal de la negociación</div>
+        <div class="tl-desc">La Comisión se reúne. El gobierno presenta los datos económicos del año. Cada parte presenta su propuesta de aumento y los argumentos que la respaldan. Empieza el debate.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">🤝</div>
+      <div class="tl-content">
+        <div class="tl-month">Diciembre (1–30)</div>
+        <div class="tl-title">Ronda de negociaciones</div>
+        <div class="tl-desc">Se realizan múltiples reuniones. Cada parte hace concesiones. Generalmente los sindicatos piden más del 15% y los empresarios ofrecen menos del 8%, y el resultado termina en el medio.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">✅</div>
+      <div class="tl-content">
+        <div class="tl-month">Escenario 1</div>
+        <div class="tl-title">Acuerdo tripartito 🎉</div>
+        <div class="tl-desc">Si las tres partes llegan a consenso antes del 30 de diciembre, firman un acta y ese es el nuevo salario mínimo. Es el escenario ideal, pero no siempre ocurre.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">📜</div>
+      <div class="tl-content">
+        <div class="tl-month">Escenario 2 (más común)</div>
+        <div class="tl-title">Decreto del Gobierno</div>
+        <div class="tl-desc">Si no hay acuerdo, el Gobierno fija el salario mínimo por decreto presidencial, basándose en los datos económicos (inflación + productividad principalmente).</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">🎆</div>
+      <div class="tl-content">
+        <div class="tl-month">1 de enero</div>
+        <div class="tl-title">Entra en vigor el nuevo salario</div>
+        <div class="tl-desc">Desde el primer día del año, todos los empleadores deben aplicar el nuevo salario mínimo. El proceso se repite en 12 meses.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="highlight-box" style="margin-top:2rem;">
+    📌 <strong>Dato curioso:</strong> En 2023, Colombia tuvo el mayor aumento histórico del salario mínimo (16%) y aun así el desempleo siguió cayendo — contradiciendo quienes decían que ese aumento destruiría empleo masivamente.
+  </div>
+</section>
+</div>
+
+<div class="container">
+<section class="section" id="simulador">
+  <div class="section-number">04</div>
+  <p class="section-tag">Experimenta</p>
+  <h2>Simulador de negociación</h2>
+  <p>Ajusta los indicadores económicos y descubre qué porcentaje de aumento podría resultar según cada escenario. Los valores base corresponden a datos de Colombia 2024:</p>
+
+  <div class="calc-box">
+    <h3>🧮 ¿Cuánto debería subir el salario mínimo?</h3>
+    <p class="calc-sub">Ajusta los indicadores y observa el resultado estimado</p>
+
+    <div class="slider-group">
+      <div class="slider-label"><span>📈 Inflación del año (IPC)</span><strong id="ipcVal">5.2%</strong></div>
+      <input type="range" min="2" max="15" step="0.1" value="5.2" id="ipcSlider" oninput="calcSalario()">
+    </div>
+    <div class="slider-group">
+      <div class="slider-label"><span>🏗️ Crecimiento del PIB</span><strong id="pibVal">1.7%</strong></div>
+      <input type="range" min="-3" max="8" step="0.1" value="1.7" id="pibSlider" oninput="calcSalario()">
+    </div>
+    <div class="slider-group">
+      <div class="slider-label"><span>⚙️ Productividad laboral</span><strong id="prodVal">0.8%</strong></div>
+      <input type="range" min="0" max="5" step="0.1" value="0.8" id="prodSlider" oninput="calcSalario()">
+    </div>
+
+    <div class="calc-result">
+      <div class="result-label">Aumento estimado</div>
+      <div class="result-amount" id="resultPct">6.5%</div>
+      <div class="result-note" id="resultNote">Salario estimado: <strong id="resultSalario">$1.384.800</strong></div>
+    </div>
+
+    <p style="font-size:0.8rem;color:var(--text-muted);margin-top:1rem;line-height:1.5;">⚠️ Simulador educativo. Fórmula simplificada: Aumento ≈ Inflación + (Productividad × 0.5) + (PIB × 0.1). La negociación real también incluye factores políticos y sociales.</p>
+  </div>
+
+  <div style="margin-top:2.5rem;">
+    <p class="section-tag">Para comparar</p>
+    <h2>Evolución histórica del salario mínimo</h2>
+    <table class="comp-table">
+      <thead><tr><th>Año</th><th>Salario Mínimo</th><th>Aumento %</th><th>Inflación ese año</th><th>Aumento real*</th></tr></thead>
+      <tbody>
+        <tr><td>2020</td><td>$877.803</td><td>6.0%</td><td>1.6%</td><td class="highlight">+4.3%</td></tr>
+        <tr><td>2021</td><td>$908.526</td><td>3.5%</td><td>5.6%</td><td style="color:#e57060">-2.0%</td></tr>
+        <tr><td>2022</td><td>$1.000.000</td><td>10.1%</td><td>13.1%</td><td style="color:#e57060">-2.7%</td></tr>
+        <tr><td>2023</td><td>$1.160.000</td><td>16.0%</td><td>9.3%</td><td class="highlight">+6.1%</td></tr>
+        <tr><td>2024</td><td>$1.300.000</td><td>12.1%</td><td>5.2%</td><td class="highlight">+6.6%</td></tr>
+        <tr><td>2025</td><td class="highlight">$1.423.500</td><td class="highlight">9.5%</td><td>~4.5% (est.)</td><td class="highlight">~+4.8%</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.7rem;">*Aumento real = cuánto subió el salario por encima de la inflación. Si es positivo, los trabajadores ganaron poder de compra.</p>
+  </div>
+</section>
+</div>
+
+<div class="container">
+<section class="section" id="quiz">
+  <div class="section-number">05</div>
+  <p class="section-tag">¿Qué tanto aprendiste?</p>
+  <h2>Pon a prueba tu conocimiento</h2>
+  <div class="quiz-box" id="quizBox">
+    <div class="quiz-progress" id="quizProgress"></div>
+    <div class="quiz-q" id="quizQ"></div>
+    <div class="quiz-options" id="quizOpts"></div>
+    <div class="quiz-feedback" id="quizFeedback"></div>
+    <button class="quiz-next" id="quizNext" onclick="nextQuestion()">Siguiente pregunta →</button>
+  </div>
+</section>
+</div>
+
+<div class="container">
+<section class="section" id="mitos">
+  <div class="section-number">06</div>
+  <p class="section-tag">Desmitificando</p>
+  <h2>Mitos y realidades</h2>
+  <p>Hay muchas creencias populares sobre el salario mínimo que no siempre son ciertas. Haz clic para descubrir la verdad:</p>
+
+  <div class="myths">
+    <div class="myth" onclick="toggleMyth(this)">
+      <div class="myth-head"><span class="myth-false">Mito</span><span class="myth-text">"Si sube mucho el salario mínimo, se dispara el desempleo automáticamente"</span><span class="myth-chevron">▼</span></div>
+      <div class="myth-body"><span class="truth">✅ La realidad es más compleja:</span>Los estudios económicos no son concluyentes. En algunos casos, un aumento moderado incluso aumenta el consumo y reduce la informalidad. El impacto depende de cuánto sube, del estado de la economía y del sector. En 2023, Colombia tuvo el mayor aumento histórico (16%) y el desempleo siguió cayendo.</div>
+    </div>
+    <div class="myth" onclick="toggleMyth(this)">
+      <div class="myth-head"><span class="myth-false">Mito</span><span class="myth-text">"El gobierno puede poner el salario que quiera"</span><span class="myth-chevron">▼</span></div>
+      <div class="myth-body"><span class="truth">✅ Existe un proceso formal:</span>El gobierno solo puede decretar el salario unilateralmente si la Comisión no llega a acuerdo. Y debe justificarlo con datos económicos. Un aumento muy bajo genera protestas sociales; uno muy alto genera presiones inflacionarias. El gobierno tiene una responsabilidad enorme.</div>
+    </div>
+    <div class="myth" onclick="toggleMyth(this)">
+      <div class="myth-head"><span class="myth-false">Mito</span><span class="myth-text">"Solo importa si trabajas formalmente"</span><span class="myth-chevron">▼</span></div>
+      <div class="myth-body"><span class="truth">✅ Tiene efectos indirectos amplios:</span>Casi el 60% de los colombianos son trabajadores informales. Aunque técnicamente el mínimo no les aplica, el aumento sirve como referencia que sube los pagos informales por presión del mercado. Además, pensiones, subsidios y contratos del Estado están indexados al salario mínimo.</div>
+    </div>
+    <div class="myth" onclick="toggleMyth(this)">
+      <div class="myth-head"><span class="myth-false">Mito</span><span class="myth-text">"Con el salario mínimo en Colombia se vive bien"</span><span class="myth-chevron">▼</span></div>
+      <div class="myth-body"><span class="truth">✅ La realidad es desafiante:</span>En 2025, el salario mínimo es de $1.423.500. El arriendo promedio en Bogotá supera $800.000. Agregar alimentación, transporte, servicios y salud hace que muchas familias no puedan cubrir todo con un solo salario mínimo. Por eso en muchos hogares trabajan dos o más personas.</div>
+    </div>
+    <div class="myth" onclick="toggleMyth(this)">
+      <div class="myth-head"><span class="myth-false">Mito</span><span class="myth-text">"Los sindicatos siempre piden aumentos irresponsables"</span><span class="myth-chevron">▼</span></div>
+      <div class="myth-body"><span class="truth">✅ Tienen argumentos legítimos:</span>Los sindicatos piden aumentos altos porque representan a trabajadores cuyo poder adquisitivo se erosiona con la inflación. Su función está protegida por la Constitución. La tensión entre trabajadores y empresarios es precisamente lo que permite llegar a un punto de equilibrio razonable.</div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="final-section">
+  <div class="container" style="padding-bottom:4rem;">
+    <h2>Ya entiendes cómo funciona 🎓</h2>
+    <p>El salario mínimo no es un número que cae del cielo. Es el resultado de una negociación técnica, política y social con datos económicos concretos como base.</p>
+    <div class="cards" style="text-align:left;">
+      <div class="card"><div class="card-icon">🔑</div><h3>La clave</h3><p>El mínimo busca equilibrar: que los trabajadores no pierdan poder de compra y que las empresas puedan seguir creando empleo.</p></div>
+      <div class="card"><div class="card-icon">📐</div><h3>La fórmula informal</h3><p>Inflación + algo de productividad + presión social = aumento del salario mínimo. Cada año el "algo" depende del contexto.</p></div>
+      <div class="card"><div class="card-icon">🔄</div><h3>Se repite cada año</h3><p>El proceso comenzará de nuevo en noviembre. Ahora tienes las herramientas para seguirlo con criterio.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleActor(el) {
+  const detail = el.querySelector('.actor-detail');
+  const hint = el.querySelector('.toggle-hint');
+  detail.classList.toggle('visible');
+  hint.textContent = detail.classList.contains('visible') ? '▲ Ver menos' : '▼ Ver más';
+}
+
+function toggleFactor(el) {
+  const wasActive = el.classList.contains('active');
+  document.querySelectorAll('.factor').forEach(f => f.classList.remove('active'));
+  if (!wasActive) el.classList.add('active');
+}
+
+function toggleMyth(el) {
+  el.classList.toggle('open');
+}
+
+function calcSalario() {
+  const ipc = parseFloat(document.getElementById('ipcSlider').value);
+  const pib = parseFloat(document.getElementById('pibSlider').value);
+  const prod = parseFloat(document.getElementById('prodSlider').value);
+  document.getElementById('ipcVal').textContent = ipc.toFixed(1) + '%';
+  document.getElementById('pibVal').textContent = pib.toFixed(1) + '%';
+  document.getElementById('prodVal').textContent = prod.toFixed(1) + '%';
+  const aumento = ipc + (prod * 0.5) + (Math.max(0, pib) * 0.1);
+  const base = 1300000;
+  const nuevo = Math.round(base * (1 + aumento / 100));
+  document.getElementById('resultPct').textContent = aumento.toFixed(1) + '%';
+  document.getElementById('resultSalario').textContent = '$' + nuevo.toLocaleString('es-CO');
+  let note = aumento < 5 ? 'Aumento bajo. Los trabajadores probablemente perderían poder adquisitivo.' :
+             aumento < 10 ? 'Aumento moderado. Podría mantener o mejorar ligeramente el poder adquisitivo.' :
+             aumento < 15 ? 'Aumento alto. Favorable para trabajadores, los empresarios expresarían preocupaciones.' :
+             'Aumento muy alto. Generaría debate sobre presiones inflacionarias y costos laborales.';
+  document.getElementById('resultNote').innerHTML = `Salario estimado: <strong>$${nuevo.toLocaleString('es-CO')}</strong> · ${note}`;
+}
+calcSalario();
+
+const preguntas = [
+  { q: "¿Cuáles son las tres partes que participan en la negociación del salario mínimo?", opts: ["El presidente, el Congreso y la Corte Constitucional", "El Gobierno, los trabajadores (sindicatos) y los empleadores (empresarios)", "El DANE, el Banco de la República y el Ministerio de Hacienda", "Los partidos políticos, las ONG y las universidades"], correct: 1, explain: "La Comisión de Concertación reúne al Gobierno (árbitro y moderador), a los sindicatos (CUT, CGT, CTC) que representan a los trabajadores, y a los gremios empresariales (ANDI, Fenalco, etc.)." },
+  { q: "¿Qué sucede si las partes NO llegan a un acuerdo antes del 31 de diciembre?", opts: ["El salario mínimo del año anterior se mantiene igual", "Se hace un referendo nacional para que los colombianos voten", "El Gobierno fija el salario mínimo mediante un decreto presidencial", "La Corte Suprema define el porcentaje de aumento"], correct: 2, explain: "Si no hay acuerdo, el Gobierno tiene la facultad legal de fijar el salario mínimo por decreto. Esto sucede con más frecuencia de lo que se cree." },
+  { q: "¿Qué mide el IPC (Índice de Precios al Consumidor)?", opts: ["El número de empleos creados en el año", "El crecimiento total de la economía colombiana", "Cuánto subieron los precios de los bienes y servicios que consume la gente", "El valor de las exportaciones colombianas"], correct: 2, explain: "El IPC mide la inflación: cuánto más caras están las cosas. Si la inflación fue 9%, lo que antes costaba $100 ahora cuesta $109. Por eso el salario debe subir al menos eso para mantener el poder adquisitivo." },
+  { q: "Si la inflación fue del 8% y el salario mínimo subió solo 5%, ¿qué le pasó al poder adquisitivo?", opts: ["Mejoró, porque el salario subió", "Se mantuvo igual", "Disminuyó, porque los precios subieron más que el salario", "Esto no es posible en Colombia"], correct: 2, explain: "El poder adquisitivo disminuyó. Aunque el trabajador recibe más pesos, esos pesos compran menos cosas porque los precios subieron más rápido que el sueldo. Esto se llama 'aumento negativo en términos reales'." },
+  { q: "¿Desde qué fecha entra en vigencia el nuevo salario mínimo cada año?", opts: ["1 de noviembre del año anterior", "31 de diciembre", "1 de enero del nuevo año", "15 de enero del nuevo año"], correct: 2, explain: "El nuevo salario mínimo siempre entra en vigencia el 1 de enero. Por eso la negociación debe resolverse antes del 31 de diciembre." }
+];
+
+let currentQ = 0, score = 0, answered = false;
+
+function renderQuiz() {
+  const p = preguntas[currentQ];
+  let pips = '';
+  for (let i = 0; i < preguntas.length; i++) {
+    pips += `<div class="quiz-pip ${i < currentQ ? 'done' : i === currentQ ? 'active' : ''}"></div>`;
+  }
+  document.getElementById('quizProgress').innerHTML = pips;
+  document.getElementById('quizQ').textContent = `Pregunta ${currentQ+1} de ${preguntas.length}: ${p.q}`;
+  const optsEl = document.getElementById('quizOpts');
+  optsEl.innerHTML = '';
+  p.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-opt';
+    btn.textContent = opt;
+    btn.onclick = () => selectAnswer(i, btn);
+    optsEl.appendChild(btn);
+  });
+  document.getElementById('quizFeedback').className = 'quiz-feedback';
+  document.getElementById('quizNext').className = 'quiz-next';
+  answered = false;
+}
+
+function selectAnswer(idx, btn) {
+  if (answered) return;
+  answered = true;
+  const p = preguntas[currentQ];
+  document.querySelectorAll('.quiz-opt').forEach(b => b.disabled = true);
+  const fb = document.getElementById('quizFeedback');
+  if (idx === p.correct) { btn.classList.add('correct'); fb.className = 'quiz-feedback visible ok'; fb.textContent = '✅ ' + p.explain; score++; }
+  else { btn.classList.add('wrong'); document.querySelectorAll('.quiz-opt')[p.correct].classList.add('correct'); fb.className = 'quiz-feedback visible fail'; fb.textContent = '❌ No exactamente. ' + p.explain; }
+  const nxt = document.getElementById('quizNext');
+  nxt.className = 'quiz-next visible';
+  nxt.textContent = currentQ < preguntas.length - 1 ? 'Siguiente pregunta →' : `Ver resultados (${score}/${preguntas.length})`;
+}
+
+function nextQuestion() {
+  if (currentQ < preguntas.length - 1) { currentQ++; renderQuiz(); }
+  else {
+    const pct = Math.round(score / preguntas.length * 100);
+    const msg = pct === 100 ? '¡Perfecto! 🏆 Eres un experto.' : pct >= 80 ? '¡Muy bien! 🎓 Dominaste el tema.' : pct >= 60 ? '¡Buen intento! 📚 Puedes releer las secciones.' : '💪 Te recomendamos volver a leer el contenido.';
+    document.getElementById('quizBox').innerHTML = `<div style="text-align:center;padding:1rem 0"><div style="font-size:3rem;margin-bottom:1rem">${pct===100?'🏆':pct>=80?'🎓':'📚'}</div><div style="font-family:'Fraunces',serif;font-size:2rem;font-weight:900;color:var(--gold);margin-bottom:0.5rem">${score}/${preguntas.length} correctas</div><div style="color:#C8C0B0;margin-bottom:1.5rem;line-height:1.6">${msg}</div><button class="scroll-btn" onclick="resetQuiz()">Intentar de nuevo</button></div>`;
+  }
+}
+
+function resetQuiz() {
+  currentQ = 0; score = 0; answered = false;
+  document.getElementById('quizBox').innerHTML = `<div class="quiz-progress" id="quizProgress"></div><div class="quiz-q" id="quizQ"></div><div class="quiz-options" id="quizOpts"></div><div class="quiz-feedback" id="quizFeedback"></div><button class="quiz-next" id="quizNext" onclick="nextQuestion()">Siguiente pregunta →</button>`;
+  renderQuiz();
+}
+
+renderQuiz();
+
+window.addEventListener('scroll', () => {
+  document.getElementById('stickyNav').classList.toggle('visible', window.scrollY > 400);
+});
+
+function scrollToSection(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
